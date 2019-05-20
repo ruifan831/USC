@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://www.cnblogs.com/jhao/p/7610218.html -->
+<html lang="zh-cn" class="gr__cnblogs_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="never">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Python NLP入门教程 - j_hao104 - 博客园</title>
+    <meta property="og:description" content="本文简要介绍Python自然语言处理(NLP)，使用Python的NLTK库。NLTK是Python的自然语言处理工具包，在NLP领域中，最常使用的一个Python库。 什么是NLP？ 简单来说，自然">
+    <link type="text/css" rel="stylesheet" href="./Python NLP入门教程 - j_hao104 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Python NLP入门教程 - j_hao104 - 博客园_files/bundle-CodingLife.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./Python NLP入门教程 - j_hao104 - 博客园_files/bundle-CodingLife-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/jhao/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/jhao/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/jhao/wlwmanifest.xml">
+    <script src="./Python NLP入门教程 - j_hao104 - 博客园_files/amp4ads-host-v0.js.download"></script><script src="./Python NLP入门教程 - j_hao104 - 博客园_files/pubads_impl_rendering_2019051601.js.download"></script><script async="" src="./Python NLP入门教程 - j_hao104 - 博客园_files/analytics.js.download"></script><script src="./Python NLP入门教程 - j_hao104 - 博客园_files/jquery-2.2.0.min.js.download"></script>
+    <script>var currentBlogId=311482;var currentBlogApp='jhao',cb_enable_mathjax=true;var isLogined=false;</script>
+    <script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({
+        tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']], processClass: 'math', processEscapes: true },
+        TeX: { 
+            equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, 
+            extensions: ['extpfeil.js'],
+            Macros: {bm: "\\boldsymbol"}
+        },
+        'HTML-CSS': { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+        });
+    </script><script src="./Python NLP入门教程 - j_hao104 - 博客园_files/MathJax.js.download"></script>
+<script src="./Python NLP入门教程 - j_hao104 - 博客园_files/blog-common.js.download" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="./Python NLP入门教程 - j_hao104 - 博客园_files/default.min.css"><link rel="preload" href="./Python NLP入门教程 - j_hao104 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./Python NLP入门教程 - j_hao104 - 博客园_files/f.txt"></script><script src="./Python NLP入门教程 - j_hao104 - 博客园_files/pubads_impl_2019051601.js.download" async=""></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-33/html/container.html"><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body data-gr-c-s-loaded="true"><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/jhao/"><img id="blogLogo" src="./Python NLP入门教程 - j_hao104 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/jhao/">j_hao104</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/jhao/">首页</a></li>
+<li></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/j_hao104">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/jhao/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/jhao/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 43&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 38</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/jhao/p/7610218.html">Python NLP入门教程</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><a name="_labelTop"></a><div id="navCategory"><p style="font-size:18px"><b>目录</b></p><ul><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label0">什么是NLP？</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label1">NLP实现</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label2">NLP库</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label3">安装 NLTK</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label4">使用Python Tokenize文本</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label5">统计词频</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label6">处理停用词</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label7">使用NLTK Tokenize文本</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label8">非英文Tokenize</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label9">同义词处理</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label10">反义词处理</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label11">词干提取</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label12">非英文词干提取</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label13">单词变体还原</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html#_label14">词干和变体的区别</a></li></ul></div><p>&nbsp;</p><p style="font-size:18px"><b>正文</b></p><div class="markdown-here-wrapper" data-md-url="https://i.cnblogs.com/EditPosts.aspx?postid=7610218">
+<p style="margin: 0px 0px 1.2em !important;">本文简要介绍Python自然语言处理(NLP)，使用Python的NLTK库。NLTK是Python的自然语言处理工具包，在NLP领域中，最常使用的一个Python库。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label0"></a></div><h2 id="-nlp-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">什么是NLP？</h2>
+<p style="margin: 0px 0px 1.2em !important;">简单来说，自然语言处理(NLP)就是开发能够理解人类语言的应用程序或服务。</p>
+<p style="margin: 0px 0px 1.2em !important;">这里讨论一些自然语言处理(NLP)的实际应用例子，如语音识别、语音翻译、理解完整的句子、理解匹配词的同义词，以及生成语法正确完整句子和段落。</p>
+<p style="margin: 0px 0px 1.2em !important;">这并不是NLP能做的所有事情。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label1"></a></div><h2 id="nlp-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">NLP实现</h2>
+<p style="margin: 0px 0px 1.2em !important;"><strong>搜索引擎</strong>: 比如谷歌，Yahoo等。谷歌搜索引擎知道你是一个技术人员，所以它显示与技术相关的结果；</p>
+<p style="margin: 0px 0px 1.2em !important;"><strong>社交网站推送</strong>:比如Facebook News Feed。如果News Feed算法知道你的兴趣是自然语言处理，就会显示相关的广告和帖子。</p>
+<p style="margin: 0px 0px 1.2em !important;"><strong>语音引擎</strong>:比如Apple的Siri。</p>
+<p style="margin: 0px 0px 1.2em !important;"><strong>垃圾邮件过滤</strong>:如谷歌垃圾邮件过滤器。和普通垃圾邮件过滤不同，它通过了解邮件内容里面的的深层意义，来判断是不是垃圾邮件。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label2"></a></div><h2 id="nlp-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">NLP库</h2>
+<p style="margin: 0px 0px 1.2em !important;">下面是一些开源的自然语言处理库(NLP)：</p>
+<ul style="margin: 1.2em 0px; padding-left: 2em;">
+<li style="margin: 0.5em 0px;">Natural language toolkit (NLTK);</li>
+<li style="margin: 0.5em 0px;">Apache OpenNLP;</li>
+<li style="margin: 0.5em 0px;">Stanford NLP suite;</li>
+<li style="margin: 0.5em 0px;">Gate NLP library</li>
+</ul>
+<p style="margin: 0px 0px 1.2em !important;">其中自然语言工具包(NLTK)是最受欢迎的自然语言处理库(NLP)，它是用Python编写的，而且背后有非常强大的社区支持。</p>
+<p style="margin: 0px 0px 1.2em !important;">NLTK也很容易上手，实际上，它是最简单的自然语言处理(NLP)库。</p>
+<p style="margin: 0px 0px 1.2em !important;">在这个NLP教程中，我们将使用Python NLTK库。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label3"></a></div><h2 id="-nltk" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">安装 NLTK</h2>
+<p style="margin: 0px 0px 1.2em !important;">如果您使用的是Windows/Linux/Mac，您可以使用pip安装NLTK:</p>
+<pre><code class="hljs language-shell" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">pip install nltk
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">打开python终端导入NLTK检查NLTK是否正确安装：</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> nltk
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">如果一切顺利，这意味着您已经成功地安装了NLTK库。首次安装了NLTK，需要通过运行以下代码来安装NLTK扩展包:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> nltk
+
+nltk.download()
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">这将弹出NLTK 下载窗口来选择需要安装哪些包:<br><img src="./Python NLP入门教程 - j_hao104 - 博客园_files/34289431.jpg" alt=""></p>
+<p style="margin: 0px 0px 1.2em !important;">您可以安装所有的包，因为它们的大小都很小，所以没有什么问题。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label4"></a></div><h2 id="-python-tokenize-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">使用Python Tokenize文本</h2>
+<p style="margin: 0px 0px 1.2em !important;">首先，我们将抓取一个web页面内容，然后分析文本了解页面的内容。</p>
+<p style="margin: 0px 0px 1.2em !important;">我们将使用urllib模块来抓取web页面:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> urllib.request
+
+response = urllib.request.urlopen(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'http://php.net/'</span></span>)
+html = response.read()
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">print</span></span> (html)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">从打印结果中可以看到，结果包含许多需要清理的HTML标签。<br>然后BeautifulSoup模块来清洗这样的文字:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> bs4 <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> BeautifulSoup
+
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> urllib.request
+response = urllib.request.urlopen(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'http://php.net/'</span></span>)
+html = response.read()
+soup = BeautifulSoup(html,<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"html5lib"</span></span>)
+<span class="hljs-comment" style="color: #999988; font-style: italic;"><span class="hljs-comment"># 这需要安装html5lib模块</span></span>
+text = soup.get_text(strip=<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">True</span></span>)
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">print</span></span> (text)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">现在我们从抓取的网页中得到了一个干净的文本。<br>下一步，将文本转换为tokens,像这样:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> bs4 <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> BeautifulSoup
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> urllib.request
+
+response = urllib.request.urlopen(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'http://php.net/'</span></span>)
+html = response.read()
+soup = BeautifulSoup(html,<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"html5lib"</span></span>)
+text = soup.get_text(strip=<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">True</span></span>)
+tokens = text.split()
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">print</span></span> (tokens)
+</code></pre>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label5"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">统计词频</h2>
+<p style="margin: 0px 0px 1.2em !important;">text已经处理完毕了，现在使用Python NLTK统计token的频率分布。</p>
+<p style="margin: 0px 0px 1.2em !important;">可以通过调用NLTK中的<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">FreqDist()</code>方法实现:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> bs4 <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> BeautifulSoup
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> urllib.request
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> nltk
+
+response = urllib.request.urlopen(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'http://php.net/'</span></span>)
+html = response.read()
+soup = BeautifulSoup(html,<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"html5lib"</span></span>)
+text = soup.get_text(strip=<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">True</span></span>)
+tokens = text.split()
+freq = nltk.FreqDist(tokens)
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> key,val <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> freq.items():
+    <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">print</span></span> (str(key) + <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">':'</span></span> + str(val))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">如果搜索输出结果，可以发现最常见的token是PHP。<br>您可以调用<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">plot</code>函数做出频率分布图:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">freq.plot(<span class="hljs-number" style="color: #008080;"><span class="hljs-number">20</span></span>, cumulative=<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">False</span></span>)
+<span class="hljs-comment" style="color: #999988; font-style: italic;"><span class="hljs-comment"># 需要安装matplotlib库</span></span>
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;"><img src="./Python NLP入门教程 - j_hao104 - 博客园_files/51431526.jpg" alt=""></p>
+<p style="margin: 0px 0px 1.2em !important;">这上面这些单词。比如<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">of</code>,<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">a</code>,<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">an</code>等等，这些词都属于停用词。</p>
+<p style="margin: 0px 0px 1.2em !important;">一般来说，停用词应该删除，防止它们影响分析结果。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label6"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">处理停用词</h2>
+<p style="margin: 0px 0px 1.2em !important;">NLTK自带了许多种语言的停用词列表，如果你获取英文停用词:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.corpus <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> stopwords
+
+stopwords.words(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'english'</span></span>)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">现在，修改下代码,在绘图之前清除一些无效的token:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">clean_tokens = list()
+sr = stopwords.words(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'english'</span></span>)
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> token <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> tokens:
+    <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">if</span></span> token <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">not</span></span> <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> sr:
+        clean_tokens.append(token)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">最终的代码应该是这样的:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> bs4 <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> BeautifulSoup
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> urllib.request
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> nltk
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.corpus <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> stopwords
+
+response = urllib.request.urlopen(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'http://php.net/'</span></span>)
+html = response.read()
+soup = BeautifulSoup(html,<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"html5lib"</span></span>)
+text = soup.get_text(strip=<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">True</span></span>)
+tokens = text.split()
+clean_tokens = list()
+sr = stopwords.words(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'english'</span></span>)
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> token <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> tokens:
+    <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">if</span></span> <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">not</span></span> token <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> sr:
+        clean_tokens.append(token)
+freq = nltk.FreqDist(clean_tokens)
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> key,val <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> freq.items():
+    <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">print</span></span> (str(key) + <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">':'</span></span> + str(val))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">现在再做一次词频统计图，效果会比之前好些，因为剔除了停用词:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">freq.plot(<span class="hljs-number" style="color: #008080;"><span class="hljs-number">20</span></span>,cumulative=<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">False</span></span>)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;"><img src="./Python NLP入门教程 - j_hao104 - 博客园_files/50754369.jpg" alt=""></p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label7"></a></div><h2 id="-nltk-tokenize-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">使用NLTK Tokenize文本</h2>
+<p style="margin: 0px 0px 1.2em !important;">在之前我们用<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">split</code>方法将文本分割成tokens，现在我们使用NLTK来Tokenize文本。</p>
+<p style="margin: 0px 0px 1.2em !important;">文本没有Tokenize之前是无法处理的，所以对文本进行Tokenize非常重要的。token化过程意味着将大的部件分割为小部件。</p>
+<p style="margin: 0px 0px 1.2em !important;">你可以将段落tokenize成句子，将句子tokenize成单个词，NLTK分别提供了句子tokenizer和单词tokenizer。</p>
+<p style="margin: 0px 0px 1.2em !important;">假如有这样这段文本:</p>
+<pre><code class="hljs language-markdown" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">Hello Adam, how are you? I hope everything is going well. Today is a good day, see you dude.
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">使用句子tokenizer将文本tokenize成句子:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.tokenize <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> sent_tokenize
+
+mytext = <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"Hello Adam, how are you? I hope everything is going well. Today is a good day, see you dude."</span></span>
+print(sent_tokenize(mytext))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出如下:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Hello Adam, how are you?'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'I hope everything is going well.'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Today is a good day, see you dude.'</span></span>]
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">这是你可能会想，这也太简单了，不需要使用NLTK的tokenizer都可以，直接使用正则表达式来拆分句子就行，因为每个句子都有标点和空格。</p>
+<p style="margin: 0px 0px 1.2em !important;">那么再来看下面的文本:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">Hello Mr. Adam, how are you? I hope everything <span class="hljs-keyword">is</span> going well. Today <span class="hljs-keyword">is</span> a good day, see you dude.
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">这样如果使用标点符号拆分,<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">Hello Mr</code>将会被认为是一个句子，如果使用NLTK:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.tokenize <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> sent_tokenize
+
+mytext = <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"Hello Mr. Adam, how are you? I hope everything is going well. Today is a good day, see you dude."</span></span>
+print(sent_tokenize(mytext))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出如下:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Hello Mr. Adam, how are you?'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'I hope everything is going well.'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Today is a good day, see you dude.'</span></span>]
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">这才是正确的拆分。</p>
+<p style="margin: 0px 0px 1.2em !important;">接下来试试单词tokenizer:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.tokenize <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> word_tokenize
+
+mytext = <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"Hello Mr. Adam, how are you? I hope everything is going well. Today is a good day, see you dude."</span></span>
+print(word_tokenize(mytext))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出如下:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Hello'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Mr.'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Adam'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">','</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'how'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'are'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'you'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'?'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'I'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'hope'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'everything'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'is'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'going'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'well'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'.'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Today'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'is'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'a'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'good'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'day'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">','</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'see'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'you'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'dude'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'.'</span></span>]
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;"><code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">Mr.</code>这个词也没有被分开。NLTK使用的是punkt模块的PunktSentenceTokenizer，它是NLTK.tokenize的一部分。而且这个tokenizer经过训练，可以适用于多种语言。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label8"></a></div><h2 id="-tokenize" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">非英文Tokenize</h2>
+<p style="margin: 0px 0px 1.2em !important;">Tokenize时可以指定语言:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.tokenize <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> sent_tokenize
+
+mytext = <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"Bonjour M. Adam, comment allez-vous? J'espère que tout va bien. Aujourd'hui est un bon jour."</span></span>
+print(sent_tokenize(mytext,<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"french"</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出结果如下:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Bonjour M. Adam, comment allez-vous?'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"J'espère que tout va bien."</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"Aujourd'hui est un bon jour."</span></span>]
+</code></pre>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label9"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">同义词处理</h2>
+<p style="margin: 0px 0px 1.2em !important;">使用<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">nltk.download()</code>安装界面，其中一个包是WordNet。</p>
+<p style="margin: 0px 0px 1.2em !important;">WordNet是一个为自然语言处理而建立的数据库。它包括一些同义词组和一些简短的定义。</p>
+<p style="margin: 0px 0px 1.2em !important;">您可以这样获取某个给定单词的定义和示例:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.corpus <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> wordnet
+
+syn = wordnet.synsets(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"pain"</span></span>)
+print(syn[<span class="hljs-number" style="color: #008080;"><span class="hljs-number">0</span></span>].definition())
+print(syn[<span class="hljs-number" style="color: #008080;"><span class="hljs-number">0</span></span>].examples())
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出结果是:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">a symptom of some physical hurt <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">or</span></span> disorder
+[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'the patient developed severe pain and distension'</span></span>]
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">WordNet包含了很多定义：</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.corpus <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> wordnet
+
+syn = wordnet.synsets(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"NLP"</span></span>)
+print(syn[<span class="hljs-number" style="color: #008080;"><span class="hljs-number">0</span></span>].definition())
+syn = wordnet.synsets(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"Python"</span></span>)
+print(syn[<span class="hljs-number" style="color: #008080;"><span class="hljs-number">0</span></span>].definition())
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">结果如下:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">the branch of information science that deals <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">with</span></span> natural language information
+large Old World boas
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">可以像这样使用WordNet来获取同义词:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.corpus <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> wordnet
+
+synonyms = []
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> syn <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> wordnet.synsets(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'Computer'</span></span>):
+    <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> lemma <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> syn.lemmas():
+        synonyms.append(lemma.name())
+print(synonyms)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'computer'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'computing_machine'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'computing_device'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'data_processor'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'electronic_computer'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'information_processing_system'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'calculator'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'reckoner'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'figurer'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'estimator'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'computer'</span></span>]
+</code></pre>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label10"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">反义词处理</h2>
+<p style="margin: 0px 0px 1.2em !important;">也可以用同样的方法得到反义词：</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.corpus <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> wordnet
+
+antonyms = []
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> syn <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> wordnet.synsets(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"small"</span></span>):
+    <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">for</span></span> l <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">in</span></span> syn.lemmas():
+        <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">if</span></span> l.antonyms():
+            antonyms.append(l.antonyms()[<span class="hljs-number" style="color: #008080;"><span class="hljs-number">0</span></span>].name())
+print(antonyms)
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">[<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'large'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'big'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'big'</span></span>]
+</code></pre>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label11"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">词干提取</h2>
+<p style="margin: 0px 0px 1.2em !important;">语言形态学和信息检索里，词干提取是去除词缀得到词根的过程，例如working的词干为work。</p>
+<p style="margin: 0px 0px 1.2em !important;">搜索引擎在索引页面时就会使用这种技术，所以很多人为相同的单词写出不同的版本。</p>
+<p style="margin: 0px 0px 1.2em !important;">有很多种算法可以避免这种情况，最常见的是<strong>波特词干算法</strong>。NLTK有一个名为PorterStemmer的类，就是这个算法的实现:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> PorterStemmer
+
+stemmer = PorterStemmer()
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'working'</span></span>))
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'worked'</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出结果是:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">work
+work
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">还有其他的一些词干提取算法，比如 <strong>Lancaster词干算法</strong>。</p>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label12"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">非英文词干提取</h2>
+<p style="margin: 0px 0px 1.2em !important;">除了英文之外，SnowballStemmer还支持13种语言。</p>
+<p style="margin: 0px 0px 1.2em !important;">支持的语言:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> SnowballStemmer
+
+print(SnowballStemmer.languages)
+</code></pre>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'danish'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'dutch'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'english'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'finnish'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'french'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'german'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'hungarian'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'italian'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'norwegian'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'porter'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'portuguese'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'romanian'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'russian'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'spanish'</span></span>, <span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'swedish'</span></span>
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">你可以使用<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">SnowballStemmer</code>类的<code style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0px 0.3em; white-space: pre-wrap; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px; display: inline;">stem</code>函数来提取像这样的非英文单词：</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> SnowballStemmer
+
+french_stemmer = SnowballStemmer(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'french'</span></span>)
+
+print(french_stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"French word"</span></span>))
+</code></pre>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label13"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">单词变体还原</h2>
+<p style="margin: 0px 0px 1.2em !important;">单词变体还原类似于词干，但不同的是，变体还原的结果是一个真实的单词。不同于词干，当你试图提取某些词时，它会产生类似的词:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> PorterStemmer
+
+stemmer = PorterStemmer()
+
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'increases'</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">结果:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">increas
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">现在，如果用NLTK的WordNet来对同一个单词进行变体还原，才是正确的结果:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'increases'</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">结果:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">increase
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">结果可能会是一个同义词或同一个意思的不同单词。</p>
+<p style="margin: 0px 0px 1.2em !important;">有时候将一个单词做变体还原时，总是得到相同的词。</p>
+<p style="margin: 0px 0px 1.2em !important;">这是因为语言的默认部分是名词。要得到动词，可以这样指定：</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'playing'</span></span>, pos=<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"v"</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">结果:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">play
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">实际上，这也是一种很好的文本压缩方式，最终得到文本只有原先的50%到60%。</p>
+<p style="margin: 0px 0px 1.2em !important;">结果还可以是动词(v)、名词(n)、形容词(a)或副词(r)：</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'playing'</span></span>, pos=<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"v"</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'playing'</span></span>, pos=<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"n"</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'playing'</span></span>, pos=<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"a"</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'playing'</span></span>, pos=<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">"r"</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">play
+playing
+playing
+playing
+</code></pre>
+<div style="text-align: right"><a href="https://www.cnblogs.com/jhao/p/7610218.html#_labelTop">回到顶部</a><a name="_label14"></a></div><h2 id="-" style="margin: 1.3em 0px 1em; padding: 0px; font-weight: bold; font-size: 1.4em; border-bottom: 1px solid #eeeeee;">词干和变体的区别</h2>
+<p style="margin: 0px 0px 1.2em !important;">通过下面例子来观察:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;"><span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> WordNetLemmatizer
+<span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">from</span></span> nltk.stem <span class="hljs-keyword" style="color: #333333; font-weight: bold;"><span class="hljs-keyword">import</span></span> PorterStemmer
+
+stemmer = PorterStemmer()
+lemmatizer = WordNetLemmatizer()
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'stones'</span></span>))
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'speaking'</span></span>))
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'bedroom'</span></span>))
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'jokes'</span></span>))
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'lisa'</span></span>))
+print(stemmer.stem(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'purple'</span></span>))
+print(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'----------------------'</span></span>)
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'stones'</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'speaking'</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'bedroom'</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'jokes'</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'lisa'</span></span>))
+print(lemmatizer.lemmatize(<span class="hljs-string" style="color: #dd1144;"><span class="hljs-string">'purple'</span></span>))
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">输出:</p>
+<pre><code class="hljs language-python" style="font-size: 0.85em; font-family: Consolas, Inconsolata, Courier, monospace; margin: 0px 0.15em; padding: 0.5em; white-space: pre; border: 1px solid #cccccc; background-color: #f8f8f8; border-radius: 3px; display: block; overflow: auto; overflow-x: auto; color: #333333; background: #f8f8f8; text-size-adjust: none;">stone
+speak
+bedroom
+joke
+lisa
+purpl
+---------------------
+stone
+speaking
+bedroom
+joke
+lisa
+purple
+</code></pre>
+<p style="margin: 0px 0px 1.2em !important;">词干提取不会考虑语境，这也是为什么词干提取比变体还原快且准确度低的原因。</p>
+<p style="margin: 0px 0px 1.2em !important;">个人认为，变体还原比词干提取更好。单词变体还原返回一个真实的单词，即使它不是同一个单词，也是同义词，但至少它是一个真实存在的单词。</p>
+<p style="margin: 0px 0px 1.2em !important;">如果你只关心速度，不在意准确度，这时你可以选用词干提取。</p>
+<p style="margin: 0px 0px 1.2em !important;">在此NLP教程中讨论的所有步骤都只是文本预处理。在以后的文章中，将会使用Python NLTK来实现文本分析。</p>
+<p style="margin: 0px 0px 1.2em !important;">我已经尽量使文章通俗易懂。希望能对你有所帮助。</p>
+<p style="margin: 0px 0px 1.2em !important;">本文首发于<a href="http://www.spiderpy.cn/blog/detail/30">http://www.spiderpy.cn/blog/detail/30</a>，转载请注明！</p>
+<div style="height: 0; width: 0; max-height: 0; max-width: 0; overflow: hidden; font-size: 0em; padding: 0; margin: 0;" title="MDH:PHA+5pys5paH566A6KaB5LuL57uNUHl0aG9u6Ieq54S26K+t6KiA5aSE55CGKE5MUCnvvIzkvb/n
+lKhQeXRob27nmoROTFRL5bqT44CCTkxUS+aYr1B5dGhvbueahOiHqueEtuivreiogOWkhOeQhuW3
+peWFt+WMhe+8jOWcqE5MUOmihuWfn+S4re+8jOacgOW4uOS9v+eUqOeahOS4gOS4qlB5dGhvbuW6
+k+OAgjwvcD48cD4jIyDku4DkuYjmmK9OTFDvvJ88L3A+PHA+566A5Y2V5p2l6K+077yM6Ieq54S2
+6K+t6KiA5aSE55CGKE5MUCnlsLHmmK/lvIDlj5Hog73lpJ/nkIbop6Pkurrnsbvor63oqIDnmoTl
+upTnlKjnqIvluo/miJbmnI3liqHjgII8L3A+PHA+6L+Z6YeM6K6o6K665LiA5Lqb6Ieq54S26K+t
+6KiA5aSE55CGKE5MUCnnmoTlrp7pmYXlupTnlKjkvovlrZDvvIzlpoLor63pn7Por4bliKvjgIHo
+r63pn7Pnv7vor5HjgIHnkIbop6PlrozmlbTnmoTlj6XlrZDjgIHnkIbop6PljLnphY3or43nmoTl
+kIzkuYnor43vvIzku6Xlj4rnlJ/miJDor63ms5XmraPnoa7lrozmlbTlj6XlrZDlkozmrrXokL3j
+gII8L3A+PHA+6L+Z5bm25LiN5pivTkxQ6IO95YGa55qE5omA5pyJ5LqL5oOF44CCPC9wPjxwPiMj
+IE5MUOWunueOsDwvcD48cD4qKuaQnOe0ouW8leaTjioqOiDmr5TlpoLosLfmrYzvvIxZYWhvb+et
+ieOAguiwt+atjOaQnOe0ouW8leaTjuefpemBk+S9oOaYr+S4gOS4quaKgOacr+S6uuWRmO+8jOaJ
+gOS7peWug+aYvuekuuS4juaKgOacr+ebuOWFs+eahOe7k+aenO+8mzwvcD48cD4qKuekvuS6pOe9
+keermeaOqOmAgSoqOuavlOWmgkZhY2Vib29rIE5ld3MgRmVlZOOAguWmguaenE5ld3MgRmVlZOeu
+l+azleefpemBk+S9oOeahOWFtOi2o+aYr+iHqueEtuivreiogOWkhOeQhu+8jOWwseS8muaYvuek
+uuebuOWFs+eahOW5v+WRiuWSjOW4luWtkOOAgjwvcD48cD4qKuivremfs+W8leaTjioqOuavlOWm
+gkFwcGxl55qEU2lyaeOAgjwvcD48cD4qKuWeg+WcvumCruS7tui/h+a7pCoqOuWmguiwt+atjOWe
+g+WcvumCruS7tui/h+a7pOWZqOOAguWSjOaZrumAmuWeg+WcvumCruS7tui/h+a7pOS4jeWQjO+8
+jOWug+mAmui/h+S6huino+mCruS7tuWGheWuuemHjOmdoueahOeahOa3seWxguaEj+S5ie+8jOad
+peWIpOaWreaYr+S4jeaYr+Weg+WcvumCruS7tuOAgjwvcD48cD4jIyBOTFDlupM8L3A+PHA+5LiL
+6Z2i5piv5LiA5Lqb5byA5rqQ55qE6Ieq54S26K+t6KiA5aSE55CG5bqTKE5MUCnvvJo8L3A+PHA+
+KiBOYXR1cmFsIGxhbmd1YWdlIHRvb2xraXQgKE5MVEspOzxicj4qIEFwYWNoZSBPcGVuTkxQOzxi
+cj4qIFN0YW5mb3JkIE5MUCBzdWl0ZTs8YnI+KiBHYXRlIE5MUCBsaWJyYXJ5PC9wPjxwPuWFtuS4
+reiHqueEtuivreiogOW3peWFt+WMhShOTFRLKeaYr+acgOWPl+asoui/jueahOiHqueEtuivreio
+gOWkhOeQhuW6kyhOTFAp77yM5a6D5piv55SoUHl0aG9u57yW5YaZ55qE77yM6ICM5LiU6IOM5ZCO
+5pyJ6Z2e5bi45by65aSn55qE56S+5Yy65pSv5oyB44CCPC9wPjxwPk5MVEvkuZ/lvojlrrnmmJPk
+uIrmiYvvvIzlrp7pmYXkuIrvvIzlroPmmK/mnIDnroDljZXnmoToh6rnhLbor63oqIDlpITnkIYo
+TkxQKeW6k+OAgjwvcD48cD7lnKjov5nkuKpOTFDmlZnnqIvkuK3vvIzmiJHku6zlsIbkvb/nlKhQ
+eXRob24gTkxUS+W6k+OAgjwvcD48cD4jIyDlronoo4UgTkxUSzwvcD48cD7lpoLmnpzmgqjkvb/n
+lKjnmoTmmK9XaW5kb3dzL0xpbnV4L01hY++8jOaCqOWPr+S7peS9v+eUqHBpcOWuieijhU5MVEs6
+PGJyPmBgYHNoZWxsPGJyPnBpcCBpbnN0YWxsIG5sdGs8YnI+YGBgPC9wPjxwPuaJk+W8gHB5dGhv
+bue7iOerr+WvvOWFpU5MVEvmo4Dmn6VOTFRL5piv5ZCm5q2j56Gu5a6J6KOF77yaPGJyPmBgYHB5
+dGhvbjxicj5pbXBvcnQgbWx0azxicj5gYGA8L3A+PHA+5aaC5p6c5LiA5YiH6aG65Yip77yM6L+Z
+5oSP5ZGz552A5oKo5bey57uP5oiQ5Yqf5Zyw5a6J6KOF5LqGTkxUS+W6k+OAgummluasoeWuieij
+heS6hk5MVEvvvIzpnIDopoHpgJrov4fov5DooYzku6XkuIvku6PnoIHmnaXlronoo4VOTFRL5omp
+5bGV5YyFOjxicj5gYGBweXRob248YnI+aW1wb3J0IG5sdGs8L3A+PHA+bmx0ay5kb3dubG9hZCgp
+PGJyPmBgYDwvcD48cD7ov5nlsIblvLnlh7pOTFRLIOS4i+i9veeql+WPo+adpemAieaLqemcgOim
+geWuieijheWTquS6m+WMhTo8YnI+IVtdKGh0dHA6Ly9xaW5pdS5zcGlkZXJweS5jbi8xNy05LTI4
+LzM0Mjg5NDMxLmpwZyk8L3A+PHA+5oKo5Y+v5Lul5a6J6KOF5omA5pyJ55qE5YyF77yM5Zug5Li6
+5a6D5Lus55qE5aSn5bCP6YO95b6I5bCP77yM5omA5Lul5rKh5pyJ5LuA5LmI6Zeu6aKY44CCPC9w
+PjxwPiMjIOS9v+eUqFB5dGhvbiBUb2tlbml6ZeaWh+acrDwvcD48cD7pppblhYjvvIzmiJHku6zl
+sIbmipPlj5bkuIDkuKp3ZWLpobXpnaLlhoXlrrnvvIznhLblkI7liIbmnpDmlofmnKzkuobop6Pp
+obXpnaLnmoTlhoXlrrnjgII8L3A+PHA+5oiR5Lus5bCG5L2/55SodXJsbGli5qih5Z2X5p2l5oqT
+5Y+Wd2Vi6aG16Z2iOjxicj5gYGBweXRob248YnI+aW1wb3J0IHVybGxpYi5yZXF1ZXN0PC9wPjxw
+PnJlc3BvbnNlID0gdXJsbGliLnJlcXVlc3QudXJsb3BlbignaHR0cDovL3BocC5uZXQvJyk8YnI+
+aHRtbCA9IHJlc3BvbnNlLnJlYWQoKTxicj5wcmludCAoaHRtbCk8YnI+YGBgPC9wPjxwPuS7juaJ
+k+WNsOe7k+aenOS4reWPr+S7peeci+WIsO+8jOe7k+aenOWMheWQq+iuuOWkmumcgOimgea4heeQ
+hueahEhUTUzmoIfnrb7jgII8YnI+54S25ZCOQmVhdXRpZnVsU291cOaooeWdl+adpea4hea0l+i/
+meagt+eahOaWh+Wtlzo8YnI+YGBgcHl0aG9uPGJyPmZyb20gYnM0IGltcG9ydCBCZWF1dGlmdWxT
+b3VwPC9wPjxwPmltcG9ydCB1cmxsaWIucmVxdWVzdDxicj5yZXNwb25zZSA9IHVybGxpYi5yZXF1
+ZXN0LnVybG9wZW4oJ2h0dHA6Ly9waHAubmV0LycpPGJyPmh0bWwgPSByZXNwb25zZS5yZWFkKCk8
+YnI+c291cCA9IEJlYXV0aWZ1bFNvdXAoaHRtbCwiaHRtbDVsaWIiKTxicj4jIOi/memcgOimgeWu
+ieijhWh0bWw1bGli5qih5Z2XPGJyPnRleHQgPSBzb3VwLmdldF90ZXh0KHN0cmlwPVRydWUpPGJy
+PnByaW50ICh0ZXh0KTxicj5gYGA8L3A+PHA+546w5Zyo5oiR5Lus5LuO5oqT5Y+W55qE572R6aG1
+5Lit5b6X5Yiw5LqG5LiA5Liq5bmy5YeA55qE5paH5pys44CCPGJyPuS4i+S4gOatpe+8jOWwhuaW
+h+acrOi9rOaNouS4unRva2Vucyzlg4/ov5nmoLc6PGJyPmBgYHB5dGhvbjxicj5mcm9tIGJzNCBp
+bXBvcnQgQmVhdXRpZnVsU291cDxicj5pbXBvcnQgdXJsbGliLnJlcXVlc3Q8L3A+PHA+cmVzcG9u
+c2UgPSB1cmxsaWIucmVxdWVzdC51cmxvcGVuKCdodHRwOi8vcGhwLm5ldC8nKTxicj5odG1sID0g
+cmVzcG9uc2UucmVhZCgpPGJyPnNvdXAgPSBCZWF1dGlmdWxTb3VwKGh0bWwsImh0bWw1bGliIik8
+YnI+dGV4dCA9IHNvdXAuZ2V0X3RleHQoc3RyaXA9VHJ1ZSk8YnI+dG9rZW5zID0gW3QgZm9yIHQg
+aW4gdGV4dC5zcGxpdCgpXTxicj5wcmludCAodG9rZW5zKTxicj5gYGA8L3A+PHA+IyMg57uf6K6h
+6K+N6aKRPGJyPnRleHTlt7Lnu4/lpITnkIblrozmr5XkuobvvIznjrDlnKjkvb/nlKhQeXRob24g
+TkxUS+e7n+iuoXRva2Vu55qE6aKR546H5YiG5biD44CCPC9wPjxwPuWPr+S7pemAmui/h+iwg+eU
+qE5MVEvkuK3nmoRgRnJlcURpc3QoKWDmlrnms5Xlrp7njrA6PGJyPmBgYHB5dGhvbjxicj5mcm9t
+IGJzNCBpbXBvcnQgQmVhdXRpZnVsU291cDxicj5pbXBvcnQgdXJsbGliLnJlcXVlc3Q8YnI+aW1w
+b3J0IG5sdGs8L3A+PHA+cmVzcG9uc2UgPSB1cmxsaWIucmVxdWVzdC51cmxvcGVuKCdodHRwOi8v
+cGhwLm5ldC8nKTxicj5odG1sID0gcmVzcG9uc2UucmVhZCgpPGJyPnNvdXAgPSBCZWF1dGlmdWxT
+b3VwKGh0bWwsImh0bWw1bGliIik8YnI+dGV4dCA9IHNvdXAuZ2V0X3RleHQoc3RyaXA9VHJ1ZSk8
+YnI+dG9rZW5zID0gW3QgZm9yIHQgaW4gdGV4dC5zcGxpdCgpXTxicj5mcmVxID0gbmx0ay5GcmVx
+RGlzdCh0b2tlbnMpPGJyPmZvciBrZXksdmFsIGluIGZyZXEuaXRlbXMoKTo8YnI+ICAgIHByaW50
+IChzdHIoa2V5KSArICc6JyArIHN0cih2YWwpKTxicj5gYGA8L3A+PHA+5aaC5p6c5pCc57Si6L6T
+5Ye657uT5p6c77yM5Y+v5Lul5Y+R546w5pyA5bi46KeB55qEdG9rZW7mmK9QSFDjgII8YnI+5oKo
+5Y+v5Lul6LCD55SoYHBsb3Rg5Ye95pWw5YGa5Ye66aKR546H5YiG5biD5Zu+Ojxicj5gYGBweXRo
+b248YnI+ZnJlcS5wbG90KDIwLCBjdW11bGF0aXZlPUZhbHNlKTxicj4jIOmcgOimgeWuieijhW1h
+dHBsb3RsaWLlupM8YnI+YGBgPGJyPiFbXShodHRwOi8vcWluaXUuc3BpZGVycHkuY24vMTctOS0y
+OC81MTQzMTUyNi5qcGcpPC9wPjxwPui/meS4iumdoui/meS6m+WNleivjeOAguavlOWmgmBvZmAs
+YGFgLGBhbmDnrYnnrYnvvIzov5nkupvor43pg73lsZ7kuo7lgZznlKjor43jgII8L3A+PHA+5LiA
+6Iis5p2l6K+077yM5YGc55So6K+N5bqU6K+l5Yig6Zmk77yM6Ziy5q2i5a6D5Lus5b2x5ZON5YiG
+5p6Q57uT5p6c44CCPC9wPjxwPiMjIOWkhOeQhuWBnOeUqOivjTwvcD48cD5OTFRL6Ieq5bim5LqG
+6K645aSa56eN6K+t6KiA55qE5YGc55So6K+N5YiX6KGo77yM5aaC5p6c5L2g6I635Y+W6Iux5paH
+5YGc55So6K+NOjxicj5gYGBweXRob248YnI+ZnJvbSBubHRrLmNvcnB1cyBpbXBvcnQgc3RvcHdv
+cmRzPC9wPjxwPnN0b3B3b3Jkcy53b3JkcygnZW5nbGlzaCcpPGJyPmBgYDwvcD48cD7njrDlnKjv
+vIzkv67mlLnkuIvku6PnoIEs5Zyo57uY5Zu+5LmL5YmN5riF6Zmk5LiA5Lqb5peg5pWI55qEdG9r
+ZW46PGJyPmBgYHB5dGhvbjxicj5jbGVhbl90b2tlbnMgPSBsaXN0KCk8YnI+c3IgPSBzdG9wd29y
+ZHMud29yZHMoJ2VuZ2xpc2gnKTxicj5mb3IgdG9rZW4gaW4gdG9rZW5zOjxicj4gICAgaWYgdG9r
+ZW4gbm90IGluIHNyOjxicj4gICAgICAgIGNsZWFuX3Rva2Vucy5hcHBlbmQodG9rZW4pPGJyPmBg
+YDwvcD48cD7mnIDnu4jnmoTku6PnoIHlupTor6XmmK/ov5nmoLfnmoQ6PGJyPmBgYHB5dGhvbjxi
+cj5mcm9tIGJzNCBpbXBvcnQgQmVhdXRpZnVsU291cDxicj5pbXBvcnQgdXJsbGliLnJlcXVlc3Q8
+YnI+aW1wb3J0IG5sdGs8YnI+ZnJvbSBubHRrLmNvcnB1cyBpbXBvcnQgc3RvcHdvcmRzPC9wPjxw
+PnJlc3BvbnNlID0gdXJsbGliLnJlcXVlc3QudXJsb3BlbignaHR0cDovL3BocC5uZXQvJyk8YnI+
+aHRtbCA9IHJlc3BvbnNlLnJlYWQoKTxicj5zb3VwID0gQmVhdXRpZnVsU291cChodG1sLCJodG1s
+NWxpYiIpPGJyPnRleHQgPSBzb3VwLmdldF90ZXh0KHN0cmlwPVRydWUpPGJyPnRva2VucyA9IFt0
+IGZvciB0IGluIHRleHQuc3BsaXQoKV08YnI+Y2xlYW5fdG9rZW5zID0gbGlzdCgpPGJyPnNyID0g
+c3RvcHdvcmRzLndvcmRzKCdlbmdsaXNoJyk8YnI+Zm9yIHRva2VuIGluIHRva2Vuczo8YnI+ICAg
+IGlmIG5vdCB0b2tlbiBpbiBzcjo8YnI+ICAgICAgICBjbGVhbl90b2tlbnMuYXBwZW5kKHRva2Vu
+KTxicj5mcmVxID0gbmx0ay5GcmVxRGlzdChjbGVhbl90b2tlbnMpPGJyPmZvciBrZXksdmFsIGlu
+IGZyZXEuaXRlbXMoKTo8YnI+ICAgIHByaW50IChzdHIoa2V5KSArICc6JyArIHN0cih2YWwpKTxi
+cj5gYGA8YnI+546w5Zyo5YaN5YGa5LiA5qyh6K+N6aKR57uf6K6h5Zu+77yM5pWI5p6c5Lya5q+U
+5LmL5YmN5aW95Lqb77yM5Zug5Li65YmU6Zmk5LqG5YGc55So6K+NOjxicj5gYGBweXRob248YnI+
+ZnJlcS5wbG90KDIwLGN1bXVsYXRpdmU9RmFsc2UpPGJyPmBgYDwvcD48cD4hW10oaHR0cDovL3Fp
+bml1LnNwaWRlcnB5LmNuLzE3LTktMjgvNTA3NTQzNjkuanBnKTwvcD48cD4jIyDkvb/nlKhOTFRL
+IFRva2VuaXpl5paH5pysPC9wPjxwPuWcqOS5i+WJjeaIkeS7rOeUqGBzcGxpdGDmlrnms5XlsIbm
+lofmnKzliIblibLmiJB0b2tlbnPvvIznjrDlnKjmiJHku6zkvb/nlKhOTFRL5p2lVG9rZW5pemXm
+lofmnKzjgII8L3A+PHA+5paH5pys5rKh5pyJVG9rZW5pemXkuYvliY3mmK/ml6Dms5XlpITnkIbn
+moTvvIzmiYDku6Xlr7nmlofmnKzov5vooYxUb2tlbml6ZemdnuW4uOmHjeimgeeahOOAgnRva2Vu
+5YyW6L+H56iL5oSP5ZGz552A5bCG5aSn55qE6YOo5Lu25YiG5Ymy5Li65bCP6YOo5Lu244CCPC9w
+PjxwPuS9oOWPr+S7peWwhuauteiQvXRva2VuaXpl5oiQ5Y+l5a2Q77yM5bCG5Y+l5a2QdG9rZW5p
+emXmiJDljZXkuKror43vvIxOTFRL5YiG5Yir5o+Q5L6b5LqG5Y+l5a2QdG9rZW5pemVy5ZKM5Y2V
+6K+NdG9rZW5pemVy44CCPC9wPjxwPuWBh+Wmguaciei/meagt+i/meauteaWh+acrDo8YnI+YGBg
+bWFya2Rvd248YnI+SGVsbG8gQWRhbSwgaG93IGFyZSB5b3U/IEkgaG9wZSBldmVyeXRoaW5nIGlz
+IGdvaW5nIHdlbGwuIFRvZGF5IGlzIGEgZ29vZCBkYXksIHNlZSB5b3UgZHVkZS48YnI+YGBgPC9w
+PjxwPuS9v+eUqOWPpeWtkHRva2VuaXplcuWwhuaWh+acrHRva2VuaXpl5oiQ5Y+l5a2QOjxicj5g
+YGBweXRob248YnI+ZnJvbSBubHRrLnRva2VuaXplIGltcG9ydCBzZW50X3Rva2VuaXplPC9wPjxw
+Pm15dGV4dCA9ICJIZWxsbyBBZGFtLCBob3cgYXJlIHlvdT8gSSBob3BlIGV2ZXJ5dGhpbmcgaXMg
+Z29pbmcgd2VsbC4gVG9kYXkgaXMgYSBnb29kIGRheSwgc2VlIHlvdSBkdWRlLiI8YnI+cHJpbnQo
+c2VudF90b2tlbml6ZShteXRleHQpKTxicj5gYGA8L3A+PHA+6L6T5Ye65aaC5LiLOjxicj5gYGBw
+eXRob248YnI+WydIZWxsbyBBZGFtLCBob3cgYXJlIHlvdT8nLCAnSSBob3BlIGV2ZXJ5dGhpbmcg
+aXMgZ29pbmcgd2VsbC4nLCAnVG9kYXkgaXMgYSBnb29kIGRheSwgc2VlIHlvdSBkdWRlLiddPGJy
+PmBgYDwvcD48cD7ov5nmmK/kvaDlj6/og73kvJrmg7PvvIzov5nkuZ/lpKrnroDljZXkuobvvIzk
+uI3pnIDopoHkvb/nlKhOTFRL55qEdG9rZW5pemVy6YO95Y+v5Lul77yM55u05o6l5L2/55So5q2j
+5YiZ6KGo6L6+5byP5p2l5ouG5YiG5Y+l5a2Q5bCx6KGM77yM5Zug5Li65q+P5Liq5Y+l5a2Q6YO9
+5pyJ5qCH54K55ZKM56m65qC844CCPC9wPjxwPumCo+S5iOWGjeadpeeci+S4i+mdoueahOaWh+ac
+rDo8YnI+YGBgcHl0aG9uPGJyPkhlbGxvIE1yLiBBZGFtLCBob3cgYXJlIHlvdT8gSSBob3BlIGV2
+ZXJ5dGhpbmcgaXMgZ29pbmcgd2VsbC4gVG9kYXkgaXMgYSBnb29kIGRheSwgc2VlIHlvdSBkdWRl
+Ljxicj5gYGA8L3A+PHA+6L+Z5qC35aaC5p6c5L2/55So5qCH54K556ym5Y+35ouG5YiGLGBIZWxs
+byBNcmDlsIbkvJrooqvorqTkuLrmmK/kuIDkuKrlj6XlrZDvvIzlpoLmnpzkvb/nlKhOTFRLOjxi
+cj5gYGBweXRob248YnI+ZnJvbSBubHRrLnRva2VuaXplIGltcG9ydCBzZW50X3Rva2VuaXplPC9w
+PjxwPm15dGV4dCA9ICJIZWxsbyBNci4gQWRhbSwgaG93IGFyZSB5b3U/IEkgaG9wZSBldmVyeXRo
+aW5nIGlzIGdvaW5nIHdlbGwuIFRvZGF5IGlzIGEgZ29vZCBkYXksIHNlZSB5b3UgZHVkZS4iPGJy
+PnByaW50KHNlbnRfdG9rZW5pemUobXl0ZXh0KSk8YnI+YGBgPC9wPjxwPui+k+WHuuWmguS4izo8
+YnI+YGBgcHl0aG9uPGJyPlsnSGVsbG8gTXIuIEFkYW0sIGhvdyBhcmUgeW91PycsICdJIGhvcGUg
+ZXZlcnl0aGluZyBpcyBnb2luZyB3ZWxsLicsICdUb2RheSBpcyBhIGdvb2QgZGF5LCBzZWUgeW91
+IGR1ZGUuJ108YnI+YGBgPC9wPjxwPui/meaJjeaYr+ato+ehrueahOaLhuWIhuOAgjwvcD48cD7m
+jqXkuIvmnaXor5Xor5XljZXor410b2tlbml6ZXI6PGJyPmBgYHB5dGhvbjxicj5mcm9tIG5sdGsu
+dG9rZW5pemUgaW1wb3J0IHdvcmRfdG9rZW5pemU8L3A+PHA+bXl0ZXh0ID0gIkhlbGxvIE1yLiBB
+ZGFtLCBob3cgYXJlIHlvdT8gSSBob3BlIGV2ZXJ5dGhpbmcgaXMgZ29pbmcgd2VsbC4gVG9kYXkg
+aXMgYSBnb29kIGRheSwgc2VlIHlvdSBkdWRlLiI8YnI+cHJpbnQod29yZF90b2tlbml6ZShteXRl
+eHQpKTxicj5gYGA8L3A+PHA+6L6T5Ye65aaC5LiLOjxicj5gYGBweXRob248YnI+WydIZWxsbycs
+ICdNci4nLCAnQWRhbScsICcsJywgJ2hvdycsICdhcmUnLCAneW91JywgJz8nLCAnSScsICdob3Bl
+JywgJ2V2ZXJ5dGhpbmcnLCAnaXMnLCAnZ29pbmcnLCAnd2VsbCcsICcuJywgJ1RvZGF5JywgJ2lz
+JywgJ2EnLCAnZ29vZCcsICdkYXknLCAnLCcsICdzZWUnLCAneW91JywgJ2R1ZGUnLCAnLiddPGJy
+PmBgYDwvcD48cD5gTXIuYOi/meS4quivjeS5n+ayoeacieiiq+WIhuW8gOOAgk5MVEvkvb/nlKjn
+moTmmK9wdW5rdOaooeWdl+eahFB1bmt0U2VudGVuY2VUb2tlbml6ZXLvvIzlroPmmK9OTFRLLnRv
+a2VuaXpl55qE5LiA6YOo5YiG44CC6ICM5LiU6L+Z5LiqdG9rZW5pemVy57uP6L+H6K6t57uD77yM
+5Y+v5Lul6YCC55So5LqO5aSa56eN6K+t6KiA44CCPC9wPjxwPiMjIOmdnuiLseaWh1Rva2VuaXpl
+PC9wPjxwPlRva2VuaXpl5pe25Y+v5Lul5oyH5a6a6K+t6KiAOjxicj5gYGBweXRob248YnI+ZnJv
+bSBubHRrLnRva2VuaXplIGltcG9ydCBzZW50X3Rva2VuaXplPC9wPjxwPm15dGV4dCA9ICJCb25q
+b3VyIE0uIEFkYW0sIGNvbW1lbnQgYWxsZXotdm91cz8gSidlc3DDqHJlIHF1ZSB0b3V0IHZhIGJp
+ZW4uIEF1am91cmQnaHVpIGVzdCB1biBib24gam91ci4iPGJyPnByaW50KHNlbnRfdG9rZW5pemUo
+bXl0ZXh0LCJmcmVuY2giKSk8YnI+YGBgPC9wPjxwPui+k+WHuue7k+aenOWmguS4izo8YnI+YGBg
+cHl0aG9uPGJyPlsnQm9uam91ciBNLiBBZGFtLCBjb21tZW50IGFsbGV6LXZvdXM/JywgIkonZXNw
+w6hyZSBxdWUgdG91dCB2YSBiaWVuLiIsICJBdWpvdXJkJ2h1aSBlc3QgdW4gYm9uIGpvdXIuIl08
+YnI+YGBgPC9wPjxwPiMjIOWQjOS5ieivjeWkhOeQhjwvcD48cD7kvb/nlKhgbmx0ay5kb3dubG9h
+ZCgpYOWuieijheeVjOmdou+8jOWFtuS4reS4gOS4quWMheaYr1dvcmROZXTjgII8L3A+PHA+V29y
+ZE5ldOaYr+S4gOS4quS4uuiHqueEtuivreiogOWkhOeQhuiAjOW7uueri+eahOaVsOaNruW6k+OA
+guWug+WMheaLrOS4gOS6m+WQjOS5ieivjee7hOWSjOS4gOS6m+eugOefreeahOWumuS5ieOAgjwv
+cD48cD7mgqjlj6/ku6Xov5nmoLfojrflj5bmn5DkuKrnu5nlrprljZXor43nmoTlrprkuYnlkozn
+pLrkvos6PGJyPmBgYHB5dGhvbjxicj5mcm9tIG5sdGsuY29ycHVzIGltcG9ydCB3b3JkbmV0PC9w
+PjxwPnN5biA9IHdvcmRuZXQuc3luc2V0cygicGFpbiIpPGJyPnByaW50KHN5blswXS5kZWZpbml0
+aW9uKCkpPGJyPnByaW50KHN5blswXS5leGFtcGxlcygpKTxicj5gYGA8L3A+PHA+6L6T5Ye657uT
+5p6c5pivOjxicj5gYGBweXRob248YnI+YSBzeW1wdG9tIG9mIHNvbWUgcGh5c2ljYWwgaHVydCBv
+ciBkaXNvcmRlcjxicj5bJ3RoZSBwYXRpZW50IGRldmVsb3BlZCBzZXZlcmUgcGFpbiBhbmQgZGlz
+dGVuc2lvbiddPGJyPmBgYDwvcD48cD5Xb3JkTmV05YyF5ZCr5LqG5b6I5aSa5a6a5LmJ77yaPGJy
+PmBgYHB5dGhvbjxicj5mcm9tIG5sdGsuY29ycHVzIGltcG9ydCB3b3JkbmV0PC9wPjxwPnN5biA9
+IHdvcmRuZXQuc3luc2V0cygiTkxQIik8YnI+cHJpbnQoc3luWzBdLmRlZmluaXRpb24oKSk8YnI+
+c3luID0gd29yZG5ldC5zeW5zZXRzKCJQeXRob24iKTxicj5wcmludChzeW5bMF0uZGVmaW5pdGlv
+bigpKTxicj5gYGA8L3A+PHA+57uT5p6c5aaC5LiLOjxicj5gYGBweXRob248YnI+dGhlIGJyYW5j
+aCBvZiBpbmZvcm1hdGlvbiBzY2llbmNlIHRoYXQgZGVhbHMgd2l0aCBuYXR1cmFsIGxhbmd1YWdl
+IGluZm9ybWF0aW9uPGJyPmxhcmdlIE9sZCBXb3JsZCBib2FzPGJyPmBgYDwvcD48cD7lj6/ku6Xl
+g4/ov5nmoLfkvb/nlKhXb3JkTmV05p2l6I635Y+W5ZCM5LmJ6K+NOjxicj5gYGBweXRob248YnI+
+ZnJvbSBubHRrLmNvcnB1cyBpbXBvcnQgd29yZG5ldDwvcD48cD5zeW5vbnltcyA9IFtdPGJyPmZv
+ciBzeW4gaW4gd29yZG5ldC5zeW5zZXRzKCdDb21wdXRlcicpOjxicj4gICAgZm9yIGxlbW1hIGlu
+IHN5bi5sZW1tYXMoKTo8YnI+ICAgICAgICBzeW5vbnltcy5hcHBlbmQobGVtbWEubmFtZSgpKTxi
+cj5wcmludChzeW5vbnltcyk8YnI+YGBgPC9wPjxwPui+k+WHujo8YnI+YGBgcHl0aG9uPGJyPlsn
+Y29tcHV0ZXInLCAnY29tcHV0aW5nX21hY2hpbmUnLCAnY29tcHV0aW5nX2RldmljZScsICdkYXRh
+X3Byb2Nlc3NvcicsICdlbGVjdHJvbmljX2NvbXB1dGVyJywgJ2luZm9ybWF0aW9uX3Byb2Nlc3Np
+bmdfc3lzdGVtJywgJ2NhbGN1bGF0b3InLCAncmVja29uZXInLCAnZmlndXJlcicsICdlc3RpbWF0
+b3InLCAnY29tcHV0ZXInXTxicj5gYGA8L3A+PHA+IyMg5Y+N5LmJ6K+N5aSE55CGPC9wPjxwPuS5
+n+WPr+S7peeUqOWQjOagt+eahOaWueazleW+l+WIsOWPjeS5ieivje+8mjxicj5gYGBweXRob248
+YnI+ZnJvbSBubHRrLmNvcnB1cyBpbXBvcnQgd29yZG5ldDwvcD48cD5hbnRvbnltcyA9IFtdPGJy
+PmZvciBzeW4gaW4gd29yZG5ldC5zeW5zZXRzKCJzbWFsbCIpOjxicj4gICAgZm9yIGwgaW4gc3lu
+LmxlbW1hcygpOjxicj4gICAgICAgIGlmIGwuYW50b255bXMoKTo8YnI+ICAgICAgICAgICAgYW50
+b255bXMuYXBwZW5kKGwuYW50b255bXMoKVswXS5uYW1lKCkpPGJyPnByaW50KGFudG9ueW1zKTxi
+cj5gYGA8L3A+PHA+6L6T5Ye6Ojxicj5gYGBweXRob248YnI+WydsYXJnZScsICdiaWcnLCAnYmln
+J108YnI+YGBgPC9wPjxwPiMjIOivjeW5suaPkOWPljwvcD48cD7or63oqIDlvaLmgIHlrablkozk
+v6Hmga/mo4DntKLph4zvvIzor43lubLmj5Dlj5bmmK/ljrvpmaTor43nvIDlvpfliLDor43moLnn
+moTov4fnqIvvvIzkvovlpoJ3b3JraW5n55qE6K+N5bmy5Li6d29ya+OAgjwvcD48cD7mkJzntKLl
+vJXmk47lnKjntKLlvJXpobXpnaLml7blsLHkvJrkvb/nlKjov5nnp43mioDmnK/vvIzmiYDku6Xl
+vojlpJrkurrkuLrnm7jlkIznmoTljZXor43lhpnlh7rkuI3lkIznmoTniYjmnKzjgII8L3A+PHA+
+5pyJ5b6I5aSa56eN566X5rOV5Y+v5Lul6YG/5YWN6L+Z56eN5oOF5Ya177yM5pyA5bi46KeB55qE
+5pivKirms6Lnibnor43lubLnrpfms5UqKuOAgk5MVEvmnInkuIDkuKrlkI3kuLpQb3J0ZXJTdGVt
+bWVy55qE57G777yM5bCx5piv6L+Z5Liq566X5rOV55qE5a6e546wOjxicj5gYGBweXRob248YnI+
+ZnJvbSBubHRrLnN0ZW0gaW1wb3J0IFBvcnRlclN0ZW1tZXI8L3A+PHA+c3RlbW1lciA9IFBvcnRl
+clN0ZW1tZXIoKTxicj5wcmludChzdGVtbWVyLnN0ZW0oJ3dvcmtpbmcnKSk8YnI+cHJpbnQoc3Rl
+bW1lci5zdGVtKCd3b3JrZWQnKSk8YnI+YGBgPC9wPjxwPui+k+WHuue7k+aenOaYrzo8YnI+YGBg
+cHl0aG9uPGJyPndvcms8YnI+d29yazxicj5gYGA8L3A+PHA+6L+Y5pyJ5YW25LuW55qE5LiA5Lqb
+6K+N5bmy5o+Q5Y+W566X5rOV77yM5q+U5aaCICoqTGFuY2FzdGVy6K+N5bmy566X5rOVKirjgII8
+L3A+PHA+IyMg6Z2e6Iux5paH6K+N5bmy5o+Q5Y+WPC9wPjxwPumZpOS6huiLseaWh+S5i+Wklu+8
+jFNub3diYWxsU3RlbW1lcui/mOaUr+aMgTEz56eN6K+t6KiA44CCPC9wPjxwPuaUr+aMgeeahOiv
+reiogDo8YnI+YGBgcHl0aG9uPGJyPmZyb20gbmx0ay5zdGVtIGltcG9ydCBTbm93YmFsbFN0ZW1t
+ZXI8L3A+PHA+cHJpbnQoU25vd2JhbGxTdGVtbWVyLmxhbmd1YWdlcyk8YnI+YGBgPGJyPmBgYHB5
+dGhvbjxicj4nZGFuaXNoJywgJ2R1dGNoJywgJ2VuZ2xpc2gnLCAnZmlubmlzaCcsICdmcmVuY2gn
+LCAnZ2VybWFuJywgJ2h1bmdhcmlhbicsICdpdGFsaWFuJywgJ25vcndlZ2lhbicsICdwb3J0ZXIn
+LCAncG9ydHVndWVzZScsICdyb21hbmlhbicsICdydXNzaWFuJywgJ3NwYW5pc2gnLCAnc3dlZGlz
+aCc8YnI+YGBgPC9wPjxwPuS9oOWPr+S7peS9v+eUqGBTbm93YmFsbFN0ZW1tZXJg57G755qEYHN0
+ZW1g5Ye95pWw5p2l5o+Q5Y+W5YOP6L+Z5qC355qE6Z2e6Iux5paH5Y2V6K+N77yaPGJyPmBgYHB5
+dGhvbjxicj5mcm9tIG5sdGsuc3RlbSBpbXBvcnQgU25vd2JhbGxTdGVtbWVyPC9wPjxwPmZyZW5j
+aF9zdGVtbWVyID0gU25vd2JhbGxTdGVtbWVyKCdmcmVuY2gnKTwvcD48cD5wcmludChmcmVuY2hf
+c3RlbW1lci5zdGVtKCJGcmVuY2ggd29yZCIpKTxicj5gYGA8L3A+PHA+IyMg5Y2V6K+N5Y+Y5L2T
+6L+Y5Y6fPC9wPjxwPuWNleivjeWPmOS9k+i/mOWOn+exu+S8vOS6juivjeW5su+8jOS9huS4jeWQ
+jOeahOaYr++8jOWPmOS9k+i/mOWOn+eahOe7k+aenOaYr+S4gOS4quecn+WunueahOWNleivjeOA
+guS4jeWQjOS6juivjeW5su+8jOW9k+S9oOivleWbvuaPkOWPluafkOS6m+ivjeaXtu+8jOWug+S8
+muS6p+eUn+exu+S8vOeahOivjTo8YnI+YGBgcHl0aG9uPGJyPmZyb20gbmx0ay5zdGVtIGltcG9y
+dCBQb3J0ZXJTdGVtbWVyPC9wPjxwPnN0ZW1tZXIgPSBQb3J0ZXJTdGVtbWVyKCk8L3A+PHA+cHJp
+bnQoc3RlbW1lci5zdGVtKCdpbmNyZWFzZXMnKSk8YnI+YGBgPC9wPjxwPue7k+aenDo8YnI+YGBg
+cHl0aG9uPGJyPmluY3JlYXM8YnI+YGBgPC9wPjxwPueOsOWcqO+8jOWmguaenOeUqE5MVEvnmoRX
+b3JkTmV05p2l5a+55ZCM5LiA5Liq5Y2V6K+N6L+b6KGM5Y+Y5L2T6L+Y5Y6f77yM5omN5piv5q2j
+56Gu55qE57uT5p6cOjxicj5gYGBweXRob248YnI+ZnJvbSBubHRrLnN0ZW0gaW1wb3J0IFdvcmRO
+ZXRMZW1tYXRpemVyPC9wPjxwPmxlbW1hdGl6ZXIgPSBXb3JkTmV0TGVtbWF0aXplcigpPC9wPjxw
+PnByaW50KGxlbW1hdGl6ZXIubGVtbWF0aXplKCdpbmNyZWFzZXMnKSk8YnI+YGBgPC9wPjxwPue7
+k+aenDo8YnI+YGBgcHl0aG9uPGJyPmluY3JlYXNlPGJyPmBgYDwvcD48cD7nu5Pmnpzlj6/og73k
+vJrmmK/kuIDkuKrlkIzkuYnor43miJblkIzkuIDkuKrmhI/mgJ3nmoTkuI3lkIzljZXor43jgII8
+L3A+PHA+5pyJ5pe25YCZ5bCG5LiA5Liq5Y2V6K+N5YGa5Y+Y5L2T6L+Y5Y6f5pe277yM5oC75piv
+5b6X5Yiw55u45ZCM55qE6K+N44CCPC9wPjxwPui/meaYr+WboOS4uuivreiogOeahOm7mOiupOmD
+qOWIhuaYr+WQjeivjeOAguimgeW+l+WIsOWKqOivje+8jOWPr+S7pei/meagt+aMh+Wumu+8mjxi
+cj5gYGBweXRob248YnI+ZnJvbSBubHRrLnN0ZW0gaW1wb3J0IFdvcmROZXRMZW1tYXRpemVyPC9w
+PjxwPmxlbW1hdGl6ZXIgPSBXb3JkTmV0TGVtbWF0aXplcigpPC9wPjxwPnByaW50KGxlbW1hdGl6
+ZXIubGVtbWF0aXplKCdwbGF5aW5nJywgcG9zPSJ2IikpPGJyPmBgYDwvcD48cD7nu5Pmnpw6PGJy
+PmBgYHB5dGhvbjxicj5wbGF5PGJyPmBgYDwvcD48cD7lrp7pmYXkuIrvvIzov5nkuZ/mmK/kuIDn
+p43lvojlpb3nmoTmlofmnKzljovnvKnmlrnlvI/vvIzmnIDnu4jlvpfliLDmlofmnKzlj6rmnInl
+jp/lhYjnmoQ1MCXliLA2MCXjgII8L3A+PHA+57uT5p6c6L+Y5Y+v5Lul5piv5Yqo6K+NKHYp44CB
+5ZCN6K+NKG4p44CB5b2i5a656K+NKGEp5oiW5Ymv6K+NKHIp77yaPGJyPmBgYHB5dGhvbjxicj5m
+cm9tIG5sdGsuc3RlbSBpbXBvcnQgV29yZE5ldExlbW1hdGl6ZXI8L3A+PHA+bGVtbWF0aXplciA9
+IFdvcmROZXRMZW1tYXRpemVyKCk8YnI+cHJpbnQobGVtbWF0aXplci5sZW1tYXRpemUoJ3BsYXlp
+bmcnLCBwb3M9InYiKSk8YnI+cHJpbnQobGVtbWF0aXplci5sZW1tYXRpemUoJ3BsYXlpbmcnLCBw
+b3M9Im4iKSk8YnI+cHJpbnQobGVtbWF0aXplci5sZW1tYXRpemUoJ3BsYXlpbmcnLCBwb3M9ImEi
+KSk8YnI+cHJpbnQobGVtbWF0aXplci5sZW1tYXRpemUoJ3BsYXlpbmcnLCBwb3M9InIiKSk8YnI+
+YGBgPC9wPjxwPui+k+WHujo8YnI+YGBgcHl0aG9uPGJyPnBsYXk8YnI+cGxheWluZzxicj5wbGF5
+aW5nPGJyPnBsYXlpbmc8YnI+YGBgPC9wPjxwPiMjIOivjeW5suWSjOWPmOS9k+eahOWMuuWIqzwv
+cD48cD7pgJrov4fkuIvpnaLkvovlrZDmnaXop4Llr586PGJyPmBgYHB5dGhvbjxicj5mcm9tIG5s
+dGsuc3RlbSBpbXBvcnQgV29yZE5ldExlbW1hdGl6ZXI8YnI+ZnJvbSBubHRrLnN0ZW0gaW1wb3J0
+IFBvcnRlclN0ZW1tZXI8L3A+PHA+c3RlbW1lciA9IFBvcnRlclN0ZW1tZXIoKTxicj5sZW1tYXRp
+emVyID0gV29yZE5ldExlbW1hdGl6ZXIoKTxicj5wcmludChzdGVtbWVyLnN0ZW0oJ3N0b25lcycp
+KTxicj5wcmludChzdGVtbWVyLnN0ZW0oJ3NwZWFraW5nJykpPGJyPnByaW50KHN0ZW1tZXIuc3Rl
+bSgnYmVkcm9vbScpKTxicj5wcmludChzdGVtbWVyLnN0ZW0oJ2pva2VzJykpPGJyPnByaW50KHN0
+ZW1tZXIuc3RlbSgnbGlzYScpKTxicj5wcmludChzdGVtbWVyLnN0ZW0oJ3B1cnBsZScpKTxicj5w
+cmludCgnLS0tLS0tLS0tLS0tLS0tLS0tLS0tLScpPGJyPnByaW50KGxlbW1hdGl6ZXIubGVtbWF0
+aXplKCdzdG9uZXMnKSk8YnI+cHJpbnQobGVtbWF0aXplci5sZW1tYXRpemUoJ3NwZWFraW5nJykp
+PGJyPnByaW50KGxlbW1hdGl6ZXIubGVtbWF0aXplKCdiZWRyb29tJykpPGJyPnByaW50KGxlbW1h
+dGl6ZXIubGVtbWF0aXplKCdqb2tlcycpKTxicj5wcmludChsZW1tYXRpemVyLmxlbW1hdGl6ZSgn
+bGlzYScpKTxicj5wcmludChsZW1tYXRpemVyLmxlbW1hdGl6ZSgncHVycGxlJykpPGJyPmBgYDwv
+cD48cD7ovpPlh7o6PGJyPmBgYHB5dGhvbjxicj5zdG9uZTxicj5zcGVhazxicj5iZWRyb29tPGJy
+Pmpva2U8YnI+bGlzYTxicj5wdXJwbDxicj4tLS0tLS0tLS0tLS0tLS0tLS0tLS08YnI+c3RvbmU8
+YnI+c3BlYWtpbmc8YnI+YmVkcm9vbTxicj5qb2tlPGJyPmxpc2E8YnI+cHVycGxlPGJyPmBgYDwv
+cD48cD7or43lubLmj5Dlj5bkuI3kvJrogIPomZHor63looPvvIzov5nkuZ/mmK/kuLrku4DkuYjo
+r43lubLmj5Dlj5bmr5Tlj5jkvZPov5jljp/lv6vkuJTlh4bnoa7luqbkvY7nmoTljp/lm6DjgII8
+L3A+PHA+5Liq5Lq66K6k5Li677yM5Y+Y5L2T6L+Y5Y6f5q+U6K+N5bmy5o+Q5Y+W5pu05aW944CC
+5Y2V6K+N5Y+Y5L2T6L+Y5Y6f6L+U5Zue5LiA5Liq55yf5a6e55qE5Y2V6K+N77yM5Y2z5L2/5a6D
+5LiN5piv5ZCM5LiA5Liq5Y2V6K+N77yM5Lmf5piv5ZCM5LmJ6K+N77yM5L2G6Iez5bCR5a6D5piv
+5LiA5Liq55yf5a6e5a2Y5Zyo55qE5Y2V6K+N44CCPC9wPjxwPuWmguaenOS9oOWPquWFs+W/g+mA
+n+W6pu+8jOS4jeWcqOaEj+WHhuehruW6pu+8jOi/meaXtuS9oOWPr+S7pemAieeUqOivjeW5suaP
+kOWPluOAgjwvcD48cD7lnKjmraROTFDmlZnnqIvkuK3orqjorrrnmoTmiYDmnInmraXpqqTpg73l
+j6rmmK/mlofmnKzpooTlpITnkIbjgILlnKjku6XlkI7nmoTmlofnq6DkuK3vvIzlsIbkvJrkvb/n
+lKhQeXRob24gTkxUS+adpeWunueOsOaWh+acrOWIhuaekOOAgjwvcD48cD7miJHlt7Lnu4/lsL3p
+h4/kvb/mlofnq6DpgJrkv5fmmJPmh4LjgILluIzmnJvog73lr7nkvaDmnInmiYDluK7liqnjgII8
+L3A+PHA+5pys5paH6aaW5Y+R5LqOW2h0dHA6Ly93d3cuc3BpZGVycHkuY24vYmxvZy9kZXRhaWwv
+MzBdKGh0dHA6Ly93d3cuc3BpZGVycHkuY24vYmxvZy9kZXRhaWwvMzAp77yM6L2s6L296K+35rOo
+5piO77yBPC9wPg==">​</div>
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/jhao/category/899177.html" target="_blank">Python</a></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/jhao/tag/Python/">Python</a>, <a href="https://www.cnblogs.com/jhao/tag/NLP/">NLP</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(7610218,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;333e07b8-8e8e-e611-845c-ac853d9f53ac&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Python NLP入门教程 - j_hao104 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Python NLP入门教程 - j_hao104 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jhao/" target="_blank"><img src="./Python NLP入门教程 - j_hao104 - 博客园_files/20161018132157.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/jhao/">j_hao104</a><br>
+            <a href="http://home.cnblogs.com/u/jhao/followees">关注 - 5</a><br>
+            <a href="http://home.cnblogs.com/u/jhao/followers">粉丝 - 21</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;333e07b8-8e8e-e611-845c-ac853d9f53ac&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(7610218,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">5</span>
+    </div>
+    <div class="buryit" onclick="votePost(7610218,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/jhao/p/7526807.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/jhao/p/7526807.html" title="发布于2017-09-15 15:46">Django1.10中文文档—模型</a><br><a href="https://www.cnblogs.com/jhao/p/7634783.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/jhao/p/7634783.html" title="发布于2017-10-07 15:05">Django 1.10中文文档-执行查询</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2017-09-29 11:23</span> <a href="https://www.cnblogs.com/jhao/">j_hao104</a> 阅读(<span id="post_view_count">2381</span>) 评论(<span id="post_comment_count">4</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=7610218" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/jhao/p/7610218.html#" onclick="AddToWz(7610218);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=311482,cb_entryId=7610218,cb_blogApp=currentBlogApp,cb_blogUserGuid='333e07b8-8e8e-e611-845c-ac853d9f53ac',cb_entryCreatedDate='2017/9/29 11:23:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/jhao/p/7610218.html#3800549" class="layer">#1楼</a><a name="3800549" id="comment_anchor_3800549"></a>  <span class="comment_date">2017-09-29 15:55</span> <a id="a_comment_author_3800549" href="http://home.cnblogs.com/u/1234848/" target="_blank">半鸟酒</a> <a href="http://msg.cnblogs.com/send/%E5%8D%8A%E9%B8%9F%E9%85%92" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3800549" class="blog_comment_body">感谢楼主分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3800549,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3800549,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/jhao/p/7610218.html#3801088" class="layer">#2楼</a><a name="3801088" id="comment_anchor_3801088"></a>  <span class="comment_date">2017-09-30 09:12</span> <a id="a_comment_author_3801088" href="http://home.cnblogs.com/u/1209297/" target="_blank">Big~Newbie</a> <a href="http://msg.cnblogs.com/send/Big~Newbie" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3801088" class="blog_comment_body">学习，楼主多分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3801088,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3801088,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/jhao/p/7610218.html#3801633" class="layer">#3楼</a><a name="3801633" id="comment_anchor_3801633"></a>  <span class="comment_date">2017-09-30 17:38</span> <a id="a_comment_author_3801633" href="http://home.cnblogs.com/u/1250942/" target="_blank">赛嗯</a> <a href="http://msg.cnblogs.com/send/%E8%B5%9B%E5%97%AF" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3801633" class="blog_comment_body">学习</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3801633,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3801633,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="https://www.cnblogs.com/jhao/p/7610218.html#3847483" class="layer">#4楼</a><a name="3847483" id="comment_anchor_3847483"></a><span id="comment-maxId" style="display:none;">3847483</span><span id="comment-maxDate" style="display:none;">2017/11/22 15:22:27</span>  <span class="comment_date">2017-11-22 15:22</span> <a id="a_comment_author_3847483" href="https://www.cnblogs.com/quxian/" target="_blank">quxian</a> <a href="http://msg.cnblogs.com/send/quxian" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3847483" class="blog_comment_body">其实，更想了解的是如何对中文进行语义分析之类的操作。毕竟我不是搞研究而是搞应用的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3847483,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3847483,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/jhao/p/7610218.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/jhao/p/7610218.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【推荐】Java工作两年，一天竟收到33份面试通知</a><br><a href="https://www.huodongxing.com/event/3492439029300" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-魔程&#39;)">【活动】“魔程”社区训练营--用实例教你快速学会Scratch和Python</a><br><a href="https://q.cnblogs.com/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-博问&#39;)">【推荐】程序员问答平台，解决您开发中遇到的技术难题</a><br><a href="https://www.bagevent.com/event/2195041?bag_track=13072958" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-看雪&#39;)">【活动】看雪2019安全开发者峰会，共话安全领域焦点</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./Python NLP入门教程 - j_hao104 - 博客园_files/gpt.js.download"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="COuQlZWeq-ICFZWPYgod4Z8Fdw"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./Python NLP入门教程 - j_hao104 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/nice107/p/8143529.html" target="_blank" onclick="clickRecomItmem(8143529)">Python NLP入门教程</a><br>·  <a href="https://www.cnblogs.com/rcfeng/p/3918544.html" target="_blank" onclick="clickRecomItmem(3918544)">自然语言处理(1)之NLTK与PYTHON</a><br>·  <a href="https://www.cnblogs.com/hapjin/p/7581335.html" target="_blank" onclick="clickRecomItmem(7581335)">NLP里面的一些基本概念</a><br>·  <a href="https://www.cnblogs.com/arkenstone/p/6195775.html" target="_blank" onclick="clickRecomItmem(6195775)">Stanford NLP 学习笔记2：文本处理基础（text processing）</a><br>·  <a href="https://www.cnblogs.com/danielpan/p/9521956.html" target="_blank" onclick="clickRecomItmem(9521956)">nlp词性标注的作用</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="COyQlZWeq-ICFZWPYgod4Z8Fdw"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./Python NLP入门教程 - j_hao104 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/625582/" target="_blank">千克、安培、开尔文和摩尔新定义生效</a><br> ·  <a href="https://news.cnblogs.com/n/625581/" target="_blank">小米一季度拥有1.64万名全职员工：平均月薪4万</a><br> ·  <a href="https://news.cnblogs.com/n/625580/" target="_blank">台积电继续向华为供货 7nm麒麟980安全了</a><br> ·  <a href="https://news.cnblogs.com/n/625579/" target="_blank">胡锡进宣布个人改用华为手机：苹果手机作为辅助手机</a><br> ·  <a href="https://news.cnblogs.com/n/625578/" target="_blank">保护组织警告考拉可能面临功能性灭绝</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/04/01&#39;);return false;">&lt;</a></td><td align="center">2019年5月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/06/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center">20</td><td class="CalTodayDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td></tr><tr><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(57)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/jhao/category/910317.html">Django(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/jhao/category/1089162.html">Django中文文档(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/jhao/category/899178.html">Linux(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/jhao/category/930065.html">MongoDB(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/jhao/category/909027.html">PyCharm(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/jhao/category/899177.html">Python(26)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/jhao/category/1165035.html">Python标准库(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/jhao/category/917544.html">SSDB(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/jhao/category/1061302.html">算法(1)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/jhao/p/6022928.html#4247218">1. Re:Python魔术方法-Magic Method</a></li>
+        <li class="recent_comment_body">mark</li>
+        <li class="recent_comment_author">--Lumia1020</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/jhao/p/7243043.html#4080082">2. Re:Python判断文件是否存在的三种方法</a></li>
+        <li class="recent_comment_body">不错, 学习了, 谢谢</li>
+        <li class="recent_comment_author">--Ryan_code</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/jhao/p/8267929.html#4003568">3. Re:Python Webdriver 重新使用已经打开的浏览器实例</a></li>
+        <li class="recent_comment_body">@j_hao104谢谢！完美解决...</li>
+        <li class="recent_comment_author">--纸言片羽</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/jhao/p/8267929.html#4003317">4. Re:Python Webdriver 重新使用已经打开的浏览器实例</a></li>
+        <li class="recent_comment_body">@纸言片羽start_session方法里面添加一句 def start_session(self, capabilities, browser_profile=None): "".........</li>
+        <li class="recent_comment_author">--j_hao104</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/jhao/p/8267929.html#4003306">5. Re:Python Webdriver 重新使用已经打开的浏览器实例</a></li>
+        <li class="recent_comment_body">求教！按你的方法复用浏览器以后，用driver.get是没问题的，但用find_element_by_id方法就会报错AttributeError: 'ReuseChrome' object has ......</li>
+        <li class="recent_comment_author">--纸言片羽</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/jhao/p/7243043.html">1. Python判断文件是否存在的三种方法(266157)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6071790.html">2. Ubuntu上通过nginx部署Django笔记(15951)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6944383.html">3. PyCharm 自定义文件和代码模板(13013)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6062497.html">4. PyCharm创建virtualenv方法(12496)</a></li><li><a href="https://www.cnblogs.com/jhao/p/5989241.html">5. Python正则表达式：最短匹配(10309)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/jhao/p/8267929.html">1. Python Webdriver 重新使用已经打开的浏览器实例(14)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6268142.html">2. Django 1.10中文文档-第一个应用Part1-请求与响应(4)</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html">3. Python NLP入门教程(4)</a></li><li><a href="https://www.cnblogs.com/jhao/p/7653045.html">4. Django 1.10中文文档-聚合(2)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6071790.html">5. Ubuntu上通过nginx部署Django笔记(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/jhao/p/7243043.html">1. Python判断文件是否存在的三种方法(7)</a></li><li><a href="https://www.cnblogs.com/jhao/p/7610218.html">2. Python NLP入门教程(5)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6132768.html">3. Python爬虫代理池(4)</a></li><li><a href="https://www.cnblogs.com/jhao/p/7653045.html">4. Django 1.10中文文档-聚合(3)</a></li><li><a href="https://www.cnblogs.com/jhao/p/6678921.html">5. Python标准库笔记(3) — datetime模块(3)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2019 j_hao104
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+<!--PageEndHtml Block Begin-->
+<script language="javascript" type="text/javascript">
+
+// 生成目录索引列表
+// ref: http://www.cnblogs.com/wangqiguo/p/4355032.html
+// modified by: zzq
+function GenerateContentList()
+{
+    var mainContent = $('#cnblogs_post_body');
+    var h2_list = $('#cnblogs_post_body h2');//如果你的章节标题不是h2,只需要将这里的h2换掉即可
+
+    if(mainContent.length < 1)
+        return;
+ 
+    if(h2_list.length>0)
+    {
+        var content = '<a name="_labelTop"></a>';
+        content += '<div id="navCategory">';
+        content += '<p style="font-size:18px"><b>目录</b></p>';
+        content += '<ul>';
+        for(var i=0; i<h2_list.length; i++)
+        {
+            var go_to_top = '<div style="text-align: right"><a href="#_labelTop">回到顶部</a><a name="_label' + i + '"></a></div>';
+            $(h2_list[i]).before(go_to_top);
+            
+            var h3_list = $(h2_list[i]).nextAll("h3");
+            var li3_content = '';
+            for(var j=0; j<h3_list.length; j++)
+            {
+                var tmp = $(h3_list[j]).prevAll('h2').first();
+                if(!tmp.is(h2_list[i]))
+                    break;
+                var li3_anchor = '<a name="_label' + i + '_' + j + '"></a>';
+                $(h3_list[j]).before(li3_anchor);
+                li3_content += '<li><a href="#_label' + i + '_' + j + '">' + $(h3_list[j]).text() + '</a></li>';
+            }
+            
+            var li2_content = '';
+            if(li3_content.length > 0)
+                li2_content = '<li><a href="#_label' + i + '">' + $(h2_list[i]).text() + '</a><ul>' + li3_content + '</ul></li>';
+            else
+                li2_content = '<li><a href="#_label' + i + '">' + $(h2_list[i]).text() + '</a></li>';
+            content += li2_content;
+        }
+        content += '</ul>';
+        content += '</div><p>&nbsp;</p>';
+        content += '<p style="font-size:18px"><b>正文</b></p>';
+        if($('#cnblogs_post_body').length != 0 )
+        {
+            $($('#cnblogs_post_body')[0]).prepend(content);
+        }
+    }   
+
+}
+
+GenerateContentList();
+</script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>
